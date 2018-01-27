@@ -43,7 +43,8 @@ class CategoryController extends Controller {
         }else{
             $flash = array(
                 'errorType' => 'Error(s)',
-                'errors' => $v->errors()
+                'errors' => $v->errors(),
+                'categoryName' => $categoryName
             );
             $this->f3->set('SESSION.flash', $flash);
             $this->f3->reroute("/categories/add");

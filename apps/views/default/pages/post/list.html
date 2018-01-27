@@ -1,14 +1,14 @@
 <section class="content-header">
     <h1>
-        Caregories
-        <small>list category</small>
+        Postings
+        <small>list posting</small>
     </h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ @BASE }}/">
                 <i class="fa fa-dashboard"></i> Dashboard</a>
         </li>
-        <li class="active">Categories</li>
+        <li class="active">Postings</li>
     </ol>
 </section>
 
@@ -16,10 +16,10 @@
     <div class="row">
         <div class="col-xs-12">
             <div id="transform-buttons" class="btn-group btn-default">
-                <a href="{{ @BASE }}/categories/add">
+                <a href="{{ @BASE }}/postings/add">
                     <button class="btn btn-default" id="insert">
                         <i class="glyphicon glyphicon-plus"></i>
-                        <span>Add Category</span>
+                        <span>Add Post</span>
                     </button>
                 </a>
             </div>
@@ -61,29 +61,40 @@
                     <table id="dataTable" class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>Category Name</th>
+                                <th>Create Date</th>
+                                <th>Title</th>
                                 <th>Status</th>
+                                <th>Publish Date</th>
+                                <th>Type</th>
                                 <th width="100px"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <repeat group="{{ @categories }}" value="{{ @category }}">
+                            <repeat group="{{ @postings }}" value="{{ @posting }}">
                                 <tr>
-                                    <td>{{ @category.name }}</td>
+                                    <td>{{ @posting.create_date }}</td>
+                                    <td>{{ @posting.title }}</td>
                                     <td>
-                                        <check if="{{ @category.status==1 }}">
-                                            <true>Enabled</true>
-                                            <false>Disabled</false>
+                                        <check if="{{ @posting.status==1 }}">
+                                            <true>Published</true>
+                                            <false>Draft</false>
+                                        </check>
+                                    </td>
+                                    <td>{{ @posting.publish_date }}</td>
+                                    <td>
+                                        <check if="{{ @posting.types==0 }}">
+                                            <true>Free</true>
+                                            <false>Paid</false>
                                         </check>
                                     </td>
                                     <td class="text-center">
                                         <div id="transform-buttons" class="btn-group btn-default">
-                                            <a href="{{ @BASE }}/categories/remove/{{ @category.id }}" title="Remove Data">
+                                            <a href="{{ @BASE }}/postings/remove/{{ @posting.id }}" title="Remove Data">
                                                 <button class="btn btn-danger btn-sm" id="remove">
                                                     <i class="glyphicon glyphicon-remove"></i>
                                                 </button>
                                             </a>
-                                            <a href="{{ @BASE }}/categories/edit/{{ @category.id }}" title="Edit Data">
+                                            <a href="{{ @BASE }}/postings/edit/{{ @posting.id }}" title="Edit Data">
                                                 <button class="btn btn-warning btn-sm" id="edit">
                                                     <i class="glyphicon glyphicon-pencil"></i>
                                                 </button>

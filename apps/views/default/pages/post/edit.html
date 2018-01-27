@@ -1,0 +1,108 @@
+<section class="content-header">
+    <h1>
+        Posting
+        <small>edit post</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="{{ @BASE }}/">
+                <i class="fa fa-dashboard"></i> Dashboard</a>
+        </li>
+        <li>
+            <a href="{{ @BASE }}/postings">
+                Postings</a>
+        </li>
+        <li class="active">Edit</li>
+    </ol>
+</section>
+
+<section class="content">
+    <form action="{{ @BASE }}/postings/update" method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <br/>
+                <check if="{{ @SESSION.flash['errors']!=null }}">
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4>
+                            <i class="icon fa fa-ban"></i> {{ @SESSION.flash['errorType'] }}
+                        </h4>
+                        <ul>
+                            <repeat group="{{ @SESSION.flash['errors'] }}" value="{{ @error }}">
+                                <li>{{ @error[0] }}</li>
+                            </repeat>
+                        </ul>
+                    </div>
+                </check>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Edit Post</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="name">Title*</label>
+                            <input type="text" name="title" value="{{ @posting.title }}" class="form-control" placeholder="Title" />
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Short Content*</label>
+                            <textarea name="short_content" class="form-control" placeholder="Short Content">{{ @posting.short_content }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Full Content*</label>
+                            <textarea id="summernote" name="full_content" class="form-control" placeholder="Full Content">{{ @posting.full_content }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Tags*</label>
+                            <input type="text" name="tags" value="{{ @posting.tags }}" class="form-control" placeholder="Tags" />
+                        </div>
+                        <div class="form-group">
+                            <label for="allow_comments">Allow Comments*</label>
+                            <select class="form-control" name="allow_comments">
+                                <option value="1" <check if="{{ @posting.allow_comments==1 }}">
+                                    <true>selected</true>
+                                    </check>>Yes</option>
+                                <option value="0" <check if="{{ @posting.allow_comments==0 }}">
+                                    <true>selected</true>
+                                    </check>>No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="types">Post Type*</label>
+                            <select class="form-control" name="types">
+                                <option value="0" <check if="{{ @posting.types==0 }}">
+                                    <true>selected</true>
+                                    </check>>Free</option>
+                                <option value="1" <check if="{{ @posting.types==1 }}">
+                                    <true>selected</true>
+                                    </check>>Paid</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status*</label>
+                            <select class="form-control" name="status">
+                                <option value="1" <check if="{{ @posting.status==1 }}">
+                                    <true>selected</true>
+                                    </check>>Published</option>
+                                <option value="0" <check if="{{ @posting.status==0 }}">
+                                    <true>selected</true>
+                                    </check>>Draft</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <p>* Required</p>
+                        <input type="hidden" name="id" value="{{ @posting.id }}" />
+                        <button type="submit" class="btn btn-success pull-right">Update Post</button>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </form>
+</section>

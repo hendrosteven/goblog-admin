@@ -1,5 +1,6 @@
 $(document)
     .ready(function () {
+
         window
             .setTimeout(function () {
                 $(".alert")
@@ -11,5 +12,8 @@ $(document)
 
         $(function () {
             $('#dataTable').DataTable()
-        })
+        });
+
+        $('#summernote').summernote();
+        
     });
