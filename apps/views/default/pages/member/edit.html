@@ -1,0 +1,93 @@
+<section class="content-header">
+    <h1>
+        Members
+        <small>edit member</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="{{ @BASE }}/">
+                <i class="fa fa-dashboard"></i> Dashboard</a>
+        </li>
+        <li>
+            <a href="{{ @BASE }}/members">
+                Members</a>
+        </li>
+        <li class="active">Edit</li>
+    </ol>
+</section>
+
+<section class="content">
+    <form action="{{ @BASE }}/members/update" method="post">
+        <div class="row">
+            <div class="col-md-8">
+                <br/>
+                <check if="{{ @SESSION.flash['errors']!=null }}">
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4>
+                            <i class="icon fa fa-ban"></i> {{ @SESSION.flash['errorType'] }}
+                        </h4>
+                        <ul>
+                            <repeat group="{{ @SESSION.flash['errors'] }}" value="{{ @error }}">
+                                <li>{{ @error[0] }}</li>
+                            </repeat>
+                        </ul>
+                    </div>
+                </check>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Edit Member</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="name">Full Name*</label>
+                            <input type="text" name="full_name" value="{{ @member.full_name }}" class="form-control" placeholder="Member full name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email*</label>
+                            <input type="text" name="email" value="{{ @member.email }}" class="form-control" placeholder="Member email" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password*</label>
+                            <input type="password" name="password" value="{{ @member.password }}"  class="form-control" placeholder="Member password" />
+                        </div>
+                        <div class="form-group">
+                            <label for="role">Role*</label>
+                            <select class="form-control" name="role">
+                                <option value="0" <check if="{{ @member.role==0 }}">
+                                    <true>selected</true>
+                                    </check>>Free Member</option>
+                                <option value="1" <check if="{{ @member.role==1 }}">
+                                    <true>selected</true>
+                                    </check>>Premium Member</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="role">Status*</label>
+                            <select class="form-control" name="status">
+                                <option value="1" <check if="{{ @member.status==1 }}">
+                                    <true>selected</true>
+                                    </check>>Active</option>
+                                <option value="0" <check if="{{ @member.status==0 }}">
+                                    <true>selected</true>
+                                    </check>>Pending</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <p>* Required</p>
+                        <input type="hidden" value="{{ @member.id }}" name="id"/>
+                        <button type="submit" class="btn btn-success pull-right">Update Member</button>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </form>
+</section>
