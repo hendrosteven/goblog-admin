@@ -45,6 +45,7 @@ class PostController extends Controller
 
             try {
                 $post->save();
+                $this->saveTag($tags);
                 $flash = array(
                     'errorType' => 'Success',
                     'infos' => array(array('Posting saved')),
@@ -76,6 +77,18 @@ class PostController extends Controller
             $this->f3->set('SESSION.flash', $flash);
             $this->f3->reroute("/postings/add");
         }
+    }
+
+    public function saveTag($tags){
+        $tag = new Tag($this->db);
+        $arrTag = explode(',',$tags);
+        foreach ($arrTag as $str) {
+            $tag->load(array('name=?', $str));
+            if($tag->dry()){ // abaikan jika tag sudah ada ditable
+                 $tag->name = $str;
+                 $tag->save();
+            }
+        };
     }
 
     public function edit()
@@ -123,6 +136,7 @@ class PostController extends Controller
 
             try {
                 $post->update();
+                $this->saveTag($tags);
                 $flash = array(
                     'errorType' => 'Success',
                     'infos' => array(array('Posting updated')),
