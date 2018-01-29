@@ -1,0 +1,112 @@
+<section class="content-header">
+    <h1>
+        Pages
+        <small>list page</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="{{ @BASE }}/">
+                <i class="fa fa-dashboard"></i> Dashboard</a>
+        </li>
+        <li class="active">Pages</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="transform-buttons" class="btn-group btn-default">
+                <a href="{{ @BASE }}/pages/add">
+                    <button class="btn btn-default" id="insert">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span>Add Page</span>
+                    </button>
+                </a>
+            </div>
+            <div>
+                <br/>
+                <check if="{{ @SESSION.flash['errors']!=null }}">
+                    <div class="alert alert-error alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4>
+                            <i class="icon fa fa-ban"></i> {{ @SESSION.flash['errorType']}}
+                        </h4>
+                        <ul>
+                            <repeat group="{{ @SESSION.flash['errors'] }}" value="{{ @error }}">
+                                <li>{{ @error[0] }}</li>
+                            </repeat>
+                        </ul>
+                    </div>
+                </check>
+                <check if="{{ @SESSION.flash['infos']!=null }}">
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4>
+                            <i class="icon fa fa-info-circle"></i> {{ @SESSION.flash['errorType'] }}
+                        </h4>
+                        <ul>
+                            <repeat group="{{ @SESSION.flash['infos'] }}" value="{{ @info }}">
+                                <li>{{ @info[0] }}</li>
+                            </repeat>
+                        </ul>
+                    </div>
+                </check>
+            </div>
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">Page Data Table</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="dataTable" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Page Name</th>
+                                <th>Index</th>
+                                <th>Visible</th>
+                                <th>Allow Comments</th>
+                                <th width="100px"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <repeat group="{{ @pages }}" value="{{ @page }}">
+                                <tr>
+                                    <td>{{ @page.name }}</td>
+                                    <td>{{ @page.index }}</td>
+                                    <td>
+                                        <check if="{{ @page.visible==1 }}">
+                                            <true>Yes</true>
+                                            <false>No</false>
+                                        </check>
+                                    </td>
+                                    <td>
+                                        <check if="{{ @page.allow_comment==1 }}">
+                                            <true>Yes</true>
+                                            <false>No</false>
+                                        </check>
+                                    </td>
+                                    <td class="text-center">
+                                        <div id="transform-buttons" class="btn-group btn-default">
+                                            <a href="{{ @BASE }}/pages/remove/{{ @page.id }}" title="Remove Data">
+                                                <button class="btn btn-danger btn-sm" id="remove">
+                                                    <i class="glyphicon glyphicon-remove"></i>
+                                                </button>
+                                            </a>
+                                            <a href="{{ @BASE }}/pages/edit/{{ @page.id }}" title="Edit Data">
+                                                <button class="btn btn-warning btn-sm" id="edit">
+                                                    <i class="glyphicon glyphicon-pencil"></i>
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </repeat>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+</section>

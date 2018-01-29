@@ -1,0 +1,83 @@
+<section class="content-header">
+    <h1>
+        Pages
+        <small>add page</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="{{ @BASE }}/">
+                <i class="fa fa-dashboard"></i> Dashboard</a>
+        </li>
+        <li>
+            <a href="{{ @BASE }}/pages">
+                Pages</a>
+        </li>
+        <li class="active">Add</li>
+    </ol>
+</section>
+
+<section class="content">
+    <form action="{{ @BASE }}/pages/save" method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <br/>
+                <check if="{{ @SESSION.flash['errors']!=null }}">
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4>
+                            <i class="icon fa fa-ban"></i> {{ @SESSION.flash['errorType'] }}
+                        </h4>
+                        <ul>
+                            <repeat group="{{ @SESSION.flash['errors'] }}" value="{{ @error }}">
+                                <li>{{ @error[0] }}</li>
+                            </repeat>
+                        </ul>
+                    </div>
+                </check>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Add New Page</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="name">Name*</label>
+                            <input type="text" name="name" value="{{ @SESSION.flash['name'] }}" class="form-control" placeholder="Page name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Content*</label>
+                            <textarea id="summernote" name="content" class="form-control" placeholder="Page Content">{{ @SESSION.flash['content'] }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Index*</label>
+                            <input type="number" name="index" value="{{ @SESSION.flash['index'] }}" class="form-control" placeholder="Page index" />
+                        </div>
+                        <div class="form-group">
+                            <label for="allow_comments">Allow Comments*</label>
+                            <select class="form-control" name="allow_comment">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div><div class="form-group">
+                            <label for="status">Visible*</label>
+                            <select class="form-control" name="visible">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <p>* Required</p>
+                        <button type="submit" class="btn btn-success pull-right">Save Page</button>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </form>
+</section>
