@@ -1,0 +1,157 @@
+<section class="content-header">
+    <h1>
+        My Profile
+        <small>edit profile</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="{{ @BASE }}/">
+                <i class="fa fa-dashboard"></i> Dashboard</a>
+        </li>
+        <li class="active">My Profile</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-6">
+            <br/>
+            <check if="{{ @SESSION.flash['errors']!=null }}">
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4>
+                        <i class="icon fa fa-ban"></i> {{ @SESSION.flash['errorType'] }}</h4>
+                    <repeat group="{{ @SESSION.flash['errors'] }}" value="{{ @error }}">
+                        <li>{{ @error[0] }}</li>
+                    </repeat>
+                </div>
+            </check>
+            <check if="{{ @SESSION.flash['infos']!=null }}">
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4>
+                        <i class="icon fa fa-info-circle"></i> {{ @SESSION.flash['errorType'] }}</h4>
+                    <repeat group="{{ @SESSION.flash['infos'] }}" value="{{ @info }}">
+                        <li>{{ @info[0] }}</li>
+                    </repeat>
+                </div>
+            </check>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <form action="{{ @BASE }}/profile/update" method="post">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Edit Profile Form</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" value="{{ @SESSION.user.full_name }}" class="form-control" id="fullName" name="fullName" placeholder="Full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="avatar">Avatar</label>
+                            <select name="avatar" class="form-control">
+                                <option value="avatar1.png" <check if="{{ @SESSION.user.avatar=='avatar1.png' }}">
+                                    <true>selected</true>
+                                    </check>>Avatar 1 (Man)</option>
+                                <option value="avatar2.png" <check if="{{ @SESSION.user.avatar=='avatar2.png' }}">
+                                    <true>selected</true>
+                                    </check>>Avatar 2 (Women)</option>
+                                <option value="avatar3.png" <check if="{{ @SESSION.user.avatar=='avatar3.png' }}">
+                                    <true>selected</true>
+                                    </check>>Avatar 3 (Women)</option>
+                                <option value="avatar4.png" <check if="{{ @SESSION.user.avatar=='avatar4.png' }}">
+                                    <true>selected</true>
+                                    </check>>Avatar 4 (Man)</option>
+                                <option value="avatar5.png" <check if="{{ @SESSION.user.avatar=='avatar5.png' }}">
+                                    <true>selected</true>
+                                    </check>>Avatar 5 (Man)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Last Login</label>
+                            <input type="text" value="{{ @SESSION.user.last_login }}" disabled="true" class="form-control" id="lastLogin" name="lastLogin"
+                                placeholder="Last login">
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-success">Update</button>
+                    </div>
+                </div>
+                <!-- /.box -->
+            </form>
+        </div>
+        <div class="col-md-6">
+            <div class="box box-primary" id="dialogPassword">
+                <div class="box-header">
+                    <h3 class="box-title">Edit Password</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" value="{{ @SESSION.user.email }}" disabled class="form-control" id="email" name="email" placeholder="Email"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Password</label>
+                        <input type="password" value="***********" disabled class="form-control" id="passwords" name="password" placeholder="Password"
+                        />
+                    </div>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <button type="button" id="btnChangePassword" class="btn btn-warning">Change Password</button>
+                </div>
+            </div>
+            <!-- /.box -->
+            <div class="hide" id="dialogEditPassword">
+                <form action="{{ @BASE }}/profile/update/password" method="post">
+                    <!-- general form elements -->
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <h3 class="box-title">Edit Password</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="name">Your Old Password</label>
+                                <input type="password" class="form-control" id="oldpassword" name="oldpassword" placeholder="Type your old password">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Your New Password</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Type your new password">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Retype Your New Password</label>
+                                <input type="password" class="form-control" id="repassword" name="repassword" placeholder="Retype your new password">
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-success">Save Password</button>
+                            <button type="button" id="btnCancel" class="btn btn-info">Cancel</button>
+                        </div>
+                    </div>
+                    <!-- /.box -->
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $('#btnChangePassword').click(function () {
+        $('#dialogEditPassword').removeClass('hide');
+        $('#dialogPassword').addClass('hide');
+    });
+
+    $('#btnCancel').click(function () {
+        $('#dialogEditPassword').addClass('hide');
+        $('#dialogPassword').removeClass('hide');
+    });
+</script>
