@@ -57,6 +57,16 @@
                             <textarea id="summernote" name="full_content" class="form-control" placeholder="Full Content">{{ @posting.full_content }}</textarea>
                         </div>
                         <div class="form-group">
+                            <label for="allow_comments">Category*</label>
+                            <select class="form-control" name="category">
+                                <repeat group="{{ @categories }}" value="{{ @category }}">
+                                    <option value="{{ @category.id }}" <check if="{{ @posting.category_id==@category.id }}">
+                                        <true>selected</true>
+                                    </check>>{{ @category.name }}</option>
+                                </repeat>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="name">Tags*</label>
                             <input type="text" name="tags" value="{{ @posting.tags }}" class="form-control" placeholder="Tags" />
                         </div>
