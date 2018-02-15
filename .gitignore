@@ -2,3 +2,4 @@ vendor/*
 tmp/*
 !tmp/.htaccess
 /composer.lock
+settings/config.ini
