@@ -12,6 +12,8 @@ class PostController extends Controller
 
     public function add()
     {
+        $category = new Category($this->db);
+        $this->f3->set('categories', $category->find());
         $this->f3->set('view', 'pages/post/add.html');
     }
 
@@ -21,6 +23,7 @@ class PostController extends Controller
         $short_content = $this->f3->get('POST.short_content');
         $full_content = $this->f3->get('POST.full_content');
         $tags = $this->f3->get('POST.tags');
+        $category = $this->f3->get('POST.category');
         $allow_comments = $this->f3->get('POST.allow_comments');
         $types = $this->f3->get('POST.types');
         $status = $this->f3->get('POST.status');
@@ -39,6 +42,7 @@ class PostController extends Controller
                 $post->publish_date = date("Y-m-d H:i:s");
             }
             $post->tags = $tags;
+            $post->category_id = $category;
             $post->allow_comments = $allow_comments;
             $post->types = $types;
             $post->status = $status;
@@ -98,6 +102,8 @@ class PostController extends Controller
         $v->rule('required', ['Post ID']);
         if ($v->validate()) {
             $post = new Post($this->db);
+            $category = new Category($this->db);
+            $this->f3->set('categories', $category->find());
             $this->f3->set('posting', $post->load(array('id=?', $id)));
             $this->f3->set('view', 'pages/post/edit.html');
         } else {
@@ -112,6 +118,7 @@ class PostController extends Controller
         $short_content = $this->f3->get('POST.short_content');
         $full_content = $this->f3->get('POST.full_content');
         $tags = $this->f3->get('POST.tags');
+        $category = $this->f3->get('POST.category');
         $allow_comments = $this->f3->get('POST.allow_comments');
         $types = $this->f3->get('POST.types');
         $status = $this->f3->get('POST.status');
@@ -130,6 +137,7 @@ class PostController extends Controller
                 $post->publish_date = date("Y-m-d H:i:s");
             }
             $post->tags = $tags;
+            $post->category_id = $category;
             $post->allow_comments = $allow_comments;
             $post->types = $types;
             $post->status = $status;
