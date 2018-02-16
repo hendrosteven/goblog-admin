@@ -1,6 +1,7 @@
 {
     "require": {
         "bcosca/fatfree": "^3.6",
-        "vlucas/valitron": "^1.2"
+        "vlucas/valitron": "^1.4",
+        "dompdf/dompdf": "^0.8.2"
     }
 }

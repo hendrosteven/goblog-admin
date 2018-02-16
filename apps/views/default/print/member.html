@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <center><u><h3>DAFTAR MEMBER<h3></u></center>
+        <p></p>
+        <table border='1' cellpadding='4' cellspacing='0' width='100%' style='border:2px'>
+            <thead>
+                <tr>
+                    <th>Nama Member</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Type</th>
+                    <th>Last Login</th>
+                </tr>
+            </thead>
+            <tbody>
+                <repeat group="{{ @members }}" value="{{ @member }}">
+                    <tr>
+                        <td>{{ @member.full_name }}</td>
+                        <td>{{ @member.email }}</td>
+                        <td>
+                            <check if="{{ @member.status==1 }}">
+                                <true>Active</true>
+                                <false>Pending</false>
+                            </check>
+                        </td>
+                        <td>
+                            <check if="{{ @member.role==0 }}">
+                                <true>Free</true>
+                                <false>Premium</false>
+                            </check>
+                        </td>
+                        <td>{{ @member.last_login }}</td>
+                    </tr>
+                </repeat>
+            </tbody>
+        </table>
+    </body>
+</html>

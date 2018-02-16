@@ -1,6 +1,8 @@
 <?php
 require 'vendor/autoload.php';
 
+define('DOMPDF_ENABLE_AUTOLOAD', false);
+
 //load Fatfree
 $f3 = Base::instance();
 
