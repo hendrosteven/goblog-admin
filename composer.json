@@ -3,5 +3,8 @@
         "bcosca/fatfree": "^3.6",
         "vlucas/valitron": "^1.4",
         "dompdf/dompdf": "^0.8.2"
+    },
+    "scripts": {
+        "run" : ["php -S localhost:8082 -t ."]       
     }
 }
